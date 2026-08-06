@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\RegisterUserRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +21,7 @@ class RegisterController extends Controller
     /**
      * Handle an incoming registration request.
      */
-    public function store(RegisterUserRequest $request)
+    public function store(RegisterRequest $request)
     {
         // Retrieve the validated data from your Form Request
         $validated = $request->validated();
