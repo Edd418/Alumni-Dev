@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -18,14 +20,41 @@ class RegisterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+        $requiresStudentId = in_array($this->input('role_selection'), ['current', 'alumni'], true);
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'unique:users, email', 'max:255'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Password::defaults()],
+            'role_selection' => [
+                'required',
+                'string',
+                Rule::in(['current', 'alumni', 'lecturer', 'partner', 'general']),
+            ],
+            'student_id' => [
+                'nullable',
+                Rule::requiredIf($requiresStudentId),
+                'digits:8',
+            ],
+        ];
+    }
+
+    /**
+     * Custom user-friendly error messages.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'role_selection.required' => 'Please select your role within the community.',
+            'role_selection.in' => 'Please select a valid role option.',
+            'student_id.required_if' => 'A student ID is required for current students and alumni.',
+            'student_id.digits' => 'The student ID must be exactly 8 digits.',
         ];
     }
 }
