@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer install --no-interaction --prefer-dist
-          npm install -D autoprefixer postcss tailwindcss sass fontaine
+          npm install -D autoprefixer postcss tailwindcss sass sass-embedded fontaine
           npm run build
 
       - name: Prepare environment
