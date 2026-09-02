@@ -19,15 +19,14 @@ jobs:
           coverage: xdebug
 
       - name: Install dependencies
-        run: |
-          composer install --no-interaction --prefer-dist
-          npm install
+        run: composer install --no-interaction --prefer-dist
 
       - name: Prepare environment
         run: |
           cp .env.example .env
           php artisan key:generate
           touch database/database.sqlite
+          php artisan migrate --force
 
       - name: Run tests, coverage and Pint
         env:
