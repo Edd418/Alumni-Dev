@@ -15,6 +15,7 @@ describe('Email Verification Logic', function () {
     });
 
     test('email verification screen can be rendered', function () {
+        $this->withoutExceptionHandling();
         $user = User::factory()->unverified()->create();
 
         $response = $this->actingAs($user)->get('/verify-email');
