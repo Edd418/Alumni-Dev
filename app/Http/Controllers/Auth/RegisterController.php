@@ -32,11 +32,11 @@ class RegisterController extends Controller
         $validated = $request->validated();
 
         $roleMap = [
-            'current'  => ['role' => 'Current Student', 'flag' => 'isCurrent'],
-            'alumni'   => ['role' => 'Alumni',          'flag' => 'isAlumni'],
+            'current' => ['role' => 'Current Student', 'flag' => 'isCurrent'],
+            'alumni' => ['role' => 'Alumni',          'flag' => 'isAlumni'],
             'lecturer' => ['role' => 'Lecturer',        'flag' => 'isLecturer'],
-            'partner'  => ['role' => 'Partner',         'flag' => 'isPartner'],
-            'general'  => ['role' => 'General User',    'flag' => null],
+            'partner' => ['role' => 'Partner',         'flag' => 'isPartner'],
+            'general' => ['role' => 'General User',    'flag' => null],
         ];
 
         $selection = $validated['role_selection'];
@@ -44,10 +44,10 @@ class RegisterController extends Controller
 
         // Prepare boolean flag mappings
         $roleFlags = [
-            'isCurrent'  => false,
-            'isAlumni'   => false,
+            'isCurrent' => false,
+            'isAlumni' => false,
             'isLecturer' => false,
-            'isPartner'  => false,
+            'isPartner' => false,
         ];
 
         if ($roleConfig['flag'] !== null) {
@@ -59,11 +59,11 @@ class RegisterController extends Controller
 
         // Create user record
         $user = User::create([
-            'name'                  => $validated['name'],
-            'email'                 => $validated['email'],
-            'password'              => Hash::make($validated['password']),
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
             'password_confirmed_at' => now(),
-            'student_id'            => $studentId,
+            'student_id' => $studentId,
         ] + $roleFlags);
 
         // Assign Spatie Role and initialize user profile
