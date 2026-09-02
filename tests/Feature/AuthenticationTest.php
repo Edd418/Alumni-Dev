@@ -3,16 +3,12 @@
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\assertAuthenticatedAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertGuest;
-
-uses(RefreshDatabase::class);
 
 describe('Web Authentication Logic', function () {
     beforeEach(function () {

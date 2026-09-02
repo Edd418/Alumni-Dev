@@ -4,12 +4,9 @@ use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
-
-uses(RefreshDatabase::class);
 
 describe('Email Verification Logic', function () {
     beforeEach(function () {
@@ -40,7 +37,7 @@ describe('Email Verification Logic', function () {
 
         Event::assertDispatched(Verified::class);
         expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-        $response->assertRedirect(route('dashboard', absolute: false).'?verified=1');
+        $response->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
     });
 
     test('email is not verified with invalid hash', function () {
