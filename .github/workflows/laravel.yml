@@ -19,7 +19,9 @@ jobs:
           coverage: xdebug
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
+        run: |
+          composer install --no-interaction --prefer-dist
+          npm install
 
       - name: Prepare environment
         run: |
