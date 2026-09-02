@@ -15,26 +15,57 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.5"
+          php-version: "8.3"
           coverage: xdebug
 
       - name: Install dependencies
-        run: |
-          composer install --no-interaction --prefer-dist
-          npm install -D autoprefixer postcss tailwindcss sass sass-embedded fontaine
-          npm run build
+        run: composer install --no-interaction --prefer-dist
 
       - name: Prepare environment
         run: |
           cp .env.example .env
           php artisan key:generate
-          touch database/database.sqlite
-          php artisan migrate --force
 
       - name: Run tests, coverage and Pint
-        env:
-          APP_ENV: testing
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-
         run: composer test
+
+# name: CI
+
+# on:
+#   push:
+#   pull_request:
+
+# jobs:
+#   tests:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup PHP
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: "8.5"
+#           coverage: xdebug
+
+#       - name: Install dependencies
+#         run: |
+#           composer install --no-interaction --prefer-dist
+#           npm install -D autoprefixer postcss tailwindcss sass sass-embedded fontaine
+#           npm run build
+
+#       - name: Prepare environment
+#         run: |
+#           cp .env.example .env
+#           php artisan key:generate
+#           touch database/database.sqlite
+#           php artisan migrate --force
+
+#       - name: Run tests, coverage and Pint
+#         env:
+#           APP_ENV: testing
+#           DB_CONNECTION: sqlite
+#           DB_DATABASE: database/database.sqlite
+
+#         run: composer test
