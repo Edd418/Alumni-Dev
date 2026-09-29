@@ -208,7 +208,7 @@
                 </div>
             </div>
         @empty
-            <div class="col-12">
+            <div class="col-12 w-100" style="column-span: all;">
                 <div class="alert alert-light border">
                     {{ !empty($searchQuery) ? 'No projects match your search.' : 'Projects will appear here once alumni seed content or create them.' }}
                 </div>
