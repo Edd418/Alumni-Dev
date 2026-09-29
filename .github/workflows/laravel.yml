@@ -20,7 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-        # Install composer dependencies in ALUMNI-PLATFORM
           composer install --no-interaction --prefer-dist
           npm install
           npm run build
