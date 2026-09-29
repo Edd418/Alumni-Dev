@@ -104,7 +104,6 @@ it('does not create a profile if all profile fields are empty', function () {
         ->and($project->profile)->toBeNull();
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | Update Method Tests
@@ -144,8 +143,6 @@ it('updates a project and completely refreshes collaborators and profiles', func
         ->and($project->fresh()->profile->bio)->toBe('Updated Bio String')
         ->and($project->fresh()->profile->details)->toEqual(['React']);
 });
-
-
 
 /*
 |--------------------------------------------------------------------------

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-
 
 class ProjectController extends Controller
 {
@@ -24,14 +22,14 @@ class ProjectController extends Controller
         $project->users()->attach($request->user()->id, ['contribution_role' => 'Owner']);
 
         $collaborators = collect($validated['collaborators'] ?? [])
-            ->filter(fn($collaborator) => filled($collaborator['name'] ?? null))
-            ->map(fn($collaborator) => [
+            ->filter(fn ($collaborator) => filled($collaborator['name'] ?? null))
+            ->map(fn ($collaborator) => [
                 'name' => $collaborator['name'],
                 'role' => $collaborator['role'] ?? null,
             ]);
 
         $ownerName = $request->user()->name;
-        if (!$collaborators->contains(fn($collaborator) => strcasecmp($collaborator['name'], $ownerName) === 0)) {
+        if (! $collaborators->contains(fn ($collaborator) => strcasecmp($collaborator['name'], $ownerName) === 0)) {
             $collaborators->push([
                 'name' => $ownerName,
                 'role' => 'Owner',
@@ -45,13 +43,13 @@ class ProjectController extends Controller
         $profileData = [
             'bio' => $validated['profile_bio'] ?? null,
             'details' => collect($validated['profile_details'] ?? [])
-                ->filter(fn($detail) => filled($detail))
+                ->filter(fn ($detail) => filled($detail))
                 ->values()
                 ->all(),
             'picture_url' => $validated['picture_url'] ?? null,
         ];
 
-        if (filled($profileData['bio']) || filled($profileData['picture_url']) || !empty($profileData['details'])) {
+        if (filled($profileData['bio']) || filled($profileData['picture_url']) || ! empty($profileData['details'])) {
             $project->profile()->create($profileData);
         }
 
@@ -69,14 +67,14 @@ class ProjectController extends Controller
         $project->update($projectData);
 
         $collaborators = collect($validated['collaborators'] ?? [])
-            ->filter(fn($collaborator) => filled($collaborator['name'] ?? null))
-            ->map(fn($collaborator) => [
+            ->filter(fn ($collaborator) => filled($collaborator['name'] ?? null))
+            ->map(fn ($collaborator) => [
                 'name' => $collaborator['name'],
                 'role' => $collaborator['role'] ?? null,
             ]);
 
         $ownerName = $request->user()->name;
-        if (!$collaborators->contains(fn($collaborator) => strcasecmp($collaborator['name'], $ownerName) === 0)) {
+        if (! $collaborators->contains(fn ($collaborator) => strcasecmp($collaborator['name'], $ownerName) === 0)) {
             $collaborators->push([
                 'name' => $ownerName,
                 'role' => 'Owner',
@@ -91,7 +89,7 @@ class ProjectController extends Controller
         $profileData = [
             'bio' => $validated['profile_bio'] ?? null,
             'details' => collect($validated['profile_details'] ?? [])
-                ->filter(fn($detail) => filled($detail))
+                ->filter(fn ($detail) => filled($detail))
                 ->values()
                 ->all(),
             'picture_url' => $validated['picture_url'] ?? null,
@@ -99,7 +97,7 @@ class ProjectController extends Controller
 
         if ($project->profile) {
             $project->profile->update($profileData);
-        } elseif (filled($profileData['bio']) || filled($profileData['picture_url']) || !empty($profileData['details'])) {
+        } elseif (filled($profileData['bio']) || filled($profileData['picture_url']) || ! empty($profileData['details'])) {
             $project->profile()->create($profileData);
         }
 

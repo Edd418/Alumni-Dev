@@ -20,7 +20,7 @@ class PlatformController extends Controller
     {
         return collect($request->input('details', []))
             ->flatten()
-            ->map(fn($value) => trim((string) $value))
+            ->map(fn ($value) => trim((string) $value))
             ->filter()
             ->unique()
             ->values()
@@ -41,7 +41,7 @@ class PlatformController extends Controller
 
                 return [$value];
             })
-            ->map(fn($value) => trim((string) $value))
+            ->map(fn ($value) => trim((string) $value))
             ->filter()
             ->values();
     }
@@ -58,7 +58,7 @@ class PlatformController extends Controller
             return true;
         }
 
-        $normalizedTokens = $tokens->map(fn($value) => Str::lower($value))->all();
+        $normalizedTokens = $tokens->map(fn ($value) => Str::lower($value))->all();
 
         foreach ($selectedDetails as $detail) {
             if (! in_array(Str::lower($detail), $normalizedTokens, true)) {
@@ -84,6 +84,7 @@ class PlatformController extends Controller
             ]
         )->withQueryString();
     }
+
     public function projects(Request $request): View
     {
         $user = $request->user();
@@ -96,7 +97,7 @@ class PlatformController extends Controller
             ->get();
 
         $projects = $allProjects
-            ->filter(fn($project) => $this->matchesSearch([
+            ->filter(fn ($project) => $this->matchesSearch([
                 $project->title,
                 $project->description,
                 $project->profile?->bio,
@@ -110,7 +111,7 @@ class PlatformController extends Controller
             ->withCount('collaborators')
             ->orderByDesc('projects.created_at')
             ->get()
-            ->filter(fn($project) => $this->matchesSearch([
+            ->filter(fn ($project) => $this->matchesSearch([
                 $project->title,
                 $project->description,
                 $project->profile?->bio,
@@ -120,7 +121,7 @@ class PlatformController extends Controller
             ->values();
 
         $detailOptions = $allProjects
-            ->flatMap(fn($project) => $project->profile?->details ?? [])
+            ->flatMap(fn ($project) => $project->profile?->details ?? [])
             ->filter()
             ->unique()
             ->sort()
@@ -138,4 +139,4 @@ class PlatformController extends Controller
             'detailOptions' => $detailOptions,
         ]);
     }
-};
+}

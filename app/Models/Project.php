@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\ProjectCollaborator;
-use App\Models\ProjectProfile;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,7 +44,7 @@ class Project extends Model
             if ($user) {
                 $q->orWhere(function ($innerQuery) use ($user) {
                     $innerQuery->where('visibility', strtolower('private'))
-                        ->whereHas('users', fn($userQuery) => $userQuery->whereKey($user->id));
+                        ->whereHas('users', fn ($userQuery) => $userQuery->whereKey($user->id));
                 });
             }
         });
