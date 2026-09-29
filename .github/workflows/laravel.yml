@@ -18,6 +18,12 @@ jobs:
           php-version: "8.5"
           coverage: xdebug
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: |
           composer install --no-interaction --prefer-dist
