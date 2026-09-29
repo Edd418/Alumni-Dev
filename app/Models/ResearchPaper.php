@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Model;
 
 class ResearchPaper extends Model
 {
@@ -45,7 +45,7 @@ class ResearchPaper extends Model
             if ($user) {
                 $q->orWhere(function ($innerQuery) use ($user) {
                     $innerQuery->where('visibility', strtolower('private'))
-                        ->whereHas('users', fn($userQuery) => $userQuery->whereKey($user->id));
+                        ->whereHas('users', fn ($userQuery) => $userQuery->whereKey($user->id));
                 });
             }
         });
