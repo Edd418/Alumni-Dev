@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use App\Models\ProjectCollaborator;
 use App\Models\ProjectProfile;
