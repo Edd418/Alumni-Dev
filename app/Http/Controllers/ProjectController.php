@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
