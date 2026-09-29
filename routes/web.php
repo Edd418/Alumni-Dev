@@ -65,6 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/projects', [PlatformController::class, 'projects'])->name('projects');
     Route::get('/papers', [PlatformController::class, 'papers'])->name('papers');
     Route::get('/me', [PlatformController::class, 'me'])->name('me');
+    Route::get('/directory', [PlatformController::class, 'directory'])->name('directory');
 
     // Project Routes
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
