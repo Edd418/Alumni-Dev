@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\ResearchPaper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -44,6 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Project::class, 'user_projects')->withPivot('contribution_role')->withTimestamps();
     }
+
+    public function researchPapers(): BelongsToMany
+    {
+        return $this->belongsToMany(ResearchPaper::class, 'user_papers')->withPivot('author_order')->withTimestamps();
+    }
+
 
     public function selfDeclaredRoleLabel(): ?string
     {
