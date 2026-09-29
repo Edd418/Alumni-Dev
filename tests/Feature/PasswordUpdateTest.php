@@ -1,9 +1,8 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Support\Facades\Hash;
 
 beforeEach(function () {
     $this->withoutMiddleware(PreventRequestForgery::class);

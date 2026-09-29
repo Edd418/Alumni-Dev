@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ContributionTriggered;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
