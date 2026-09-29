@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\PlatformController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,4 +55,10 @@ Route::middleware('auth')->group(function () {
 // Authenticated and Verified Routes (Only for logged-in users with verified email)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/projects', [PlatformController::class, 'projects'])->name('projects');
+
+    // Project Routes
+    Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+    Route::patch('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 });
