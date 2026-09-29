@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\PaperController;
 use App\Http\Controllers\PlatformController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/projects', [PlatformController::class, 'projects'])->name('projects');
     Route::get('/papers', [PlatformController::class, 'papers'])->name('papers');
+    Route::get('/me', [PlatformController::class, 'me'])->name('me');
 
     // Project Routes
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
@@ -77,4 +80,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Post Routes
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    // Resume Routes (Profile)
+    Route::patch('/me/profile', [MeController::class, 'update'])->name('me.profile.update');
 });
