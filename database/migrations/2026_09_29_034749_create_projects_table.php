@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->string('visibility')->default('public')->after('description');
             $table->string('repo_url')->nullable();
             $table->timestamps();
         });
