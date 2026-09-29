@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\PaperController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -56,9 +57,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/projects', [PlatformController::class, 'projects'])->name('projects');
+    Route::get('/papers', [PlatformController::class, 'papers'])->name('papers');
 
     // Project Routes
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::patch('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+
+    // Research Paper Routes
+    Route::post('/papers', [PaperController::class, 'store'])->name('papers.store');
+    Route::patch('/papers/{paper}', [PaperController::class, 'update'])->name('papers.update');
+    Route::delete('/papers/{paper}', [PaperController::class, 'destroy'])->name('papers.destroy');
 });
