@@ -4,11 +4,13 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\PaperController;
 use App\Http\Controllers\PlatformController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +52,8 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1')
         ->name('verification.send');
 
+    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });
 
@@ -68,4 +72,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/papers', [PaperController::class, 'store'])->name('papers.store');
     Route::patch('/papers/{paper}', [PaperController::class, 'update'])->name('papers.update');
     Route::delete('/papers/{paper}', [PaperController::class, 'destroy'])->name('papers.destroy');
+
+    // Profile Routes (User Email, Password, and Profile Management)
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
