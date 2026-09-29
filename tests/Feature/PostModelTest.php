@@ -37,12 +37,12 @@ it('filters and displays only public posts for an unauthenticated guest visitor'
     // Arrange: Create one public and one private post
     Post::factory()->create([
         'title' => 'Public Post',
-        'visibility' => 'public'
+        'visibility' => 'public',
     ]);
 
     Post::factory()->create([
         'title' => 'Private Post',
-        'visibility' => 'private'
+        'visibility' => 'private',
     ]);
 
     // Act: Invoke the visibleTo scope passing null for the user context
