@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\PaperController;
 use App\Http\Controllers\PlatformController;
@@ -66,6 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/papers', [PlatformController::class, 'papers'])->name('papers');
     Route::get('/me', [PlatformController::class, 'me'])->name('me');
     Route::get('/directory', [PlatformController::class, 'directory'])->name('directory');
+    Route::get('/networking-hub', [PlatformController::class, 'networking'])->name('networking');
 
     // Project Routes
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
@@ -89,4 +91,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Resume Routes (Profile)
     Route::patch('/me/profile', [MeController::class, 'update'])->name('me.profile.update');
+
+    // Group Routes
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::patch('/groups/{group}', [GroupController::class, 'update'])->name('groups.update');
+    Route::delete('/groups/{group}', [GroupController::class, 'destroy'])->name('groups.destroy');
 });
