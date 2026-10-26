@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             ProjectsEcosystemSeeder::class,
             ResearchEcosystemSeeder::class,
             GroupsEcosystemSeeder::class,
+            ListingsSeeder::class,
             CommunityContentSeeder::class,
         ]);
     }
